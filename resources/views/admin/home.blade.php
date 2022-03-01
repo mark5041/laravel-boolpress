@@ -15,6 +15,8 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+
+                    <button class="btn btn-primary" href="{{ route('admin.comics.index') }}">Go to Comics</button>
                 </div>
             </div>
         </div>
