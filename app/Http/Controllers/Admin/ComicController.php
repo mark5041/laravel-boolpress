@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Comic;
 use App\User;
+use App\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ComicController extends Controller
 {
@@ -29,7 +31,7 @@ class ComicController extends Controller
     public function index()
     {
         $comics = Comic::paginate(5);
-        return view('admin.comics.index', compact('comics'));
+        return view('admin.comics.index', ['comics' => $comics]);
     }
 
     /**
@@ -39,7 +41,8 @@ class ComicController extends Controller
      */
     public function create()
     {
-        return view('admin.comics.create');
+        $categories = Category::all();
+        return view('admin.comics.create', ['categories' => $categories]);
     }
 
     /**
@@ -52,18 +55,21 @@ class ComicController extends Controller
     {
         
 
-        $request->validate($this->validator);
-
         $data = $request->all();
+        $data['user_id'] = Auth::user()->id;
+        $validator = $request->validate(
+            [
+                'title' => 'required|max:240',
+                'thumb' => 'required',
+                'category_id' => 'exists:App\Category,id'
+            ]
+        );
+
+
         $comic = new Comic();
         $comic->fill($data);
         $comic->slug = $comic->createSlug($data['title']);
-
-        $save = $comic->save();
-
-        if (!$save) {
-            dd('salvataggio non riuscito');
-        }
+        $comic->save();
 
         return redirect()->route('admin.comics.show', $comic->slug);
     }
@@ -87,7 +93,12 @@ class ComicController extends Controller
      */
     public function edit(Comic $comic)
     {
-        return view('admin.comics.edit', ['comic' => $comic]);
+        if (Auth::user()->id != $comic->user_id) {
+            abort('403');
+        }
+        $categories = Category::all();
+
+        return view('admin.comics.edit', ['comic' => $comic, 'categories' => $categories]);
     }
 
     /**
@@ -99,7 +110,34 @@ class ComicController extends Controller
      */
     public function update(Request $request, Comic $comic)
     {
-        //
+        $data = $request->all();
+        if (Auth::user()->id != $comic->user_id) {
+            abort('403');
+        }
+
+
+        $validator = $request->validate(
+            [
+                'title' => 'required|max:240',
+                'thumb' => 'required',
+                'category_id' => 'exists:App\Category,id'
+            ]
+        );
+
+        if ($data['title'] != $comic->title) {
+            $comic->title = $data['title'];
+            $comic->slug = $comic->createSlug($data['title']);
+        }
+        if ($data['thumb'] != $comic->content) {
+            $comic->content = $data['thumb'];
+        }
+        if ($data['category_id'] != $comic->category_id) {
+            $comic->category_id = $data['category_id'];
+        }
+
+        $comic->update();
+
+        return redirect()->route('admin.comics.show', $comic);
     }
 
     /**
