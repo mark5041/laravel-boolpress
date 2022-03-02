@@ -20,6 +20,7 @@
         <div class="row">
             <div class="col mb-2">
                 <a href="{{ route('admin.comics.create') }}" class="btn btn-primary">Add new comic</a>
+                <a href="{{ route('admin.categories.index') }}" class="btn btn-primary">Show categories</a>
             </div>
         </div>
         <div class="row">
