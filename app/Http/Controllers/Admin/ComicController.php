@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Comic;
+use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -50,12 +51,11 @@ class ComicController extends Controller
      */
     public function store(Request $request)
     {
+        
+
+        $request->validate($this->validator);
+
         $data = $request->all();
-        // $data['user_id'] = Auth::user()->id;
-
-        $validateData = $request->validate($this->ruleValidation);
-
-        $dataArray = $request->all();
         $comic = new Comic();
         $comic->fill($data);
         $comic->slug = $comic->createSlug($data['title']);
@@ -98,7 +98,7 @@ class ComicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Comic $comic)
     {
         //
     }
