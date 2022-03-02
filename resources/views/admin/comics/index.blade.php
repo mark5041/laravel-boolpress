@@ -43,9 +43,11 @@
                             <td>{{ $comic->artists }}</td>
                             <td>{{ $comic->price }} €</td>
                             <td>{{ $comic->sale_date }}</td>
-                            <td>
+                            <td class="d-flex justify-content-space-around">
                                 <a class="btn btn-secondary" href="{{ route('admin.comics.show', $comic) }}">View</a>
-                                <a class="btn btn-secondary" href="{{ route('admin.comics.edit', $comic) }}">Edit</a>
+                                @if (Auth::user()->id === $comic->user_id)
+                                    <a class="btn btn-info" href="{{ route('admin.comics.edit', $comic->slug) }}">Modify</a>
+                                @endif
                                 <form action="{{ route('admin.comics.destroy', $comic->id) }}" method="post">
                                     @csrf
                                     @method('DELETE')

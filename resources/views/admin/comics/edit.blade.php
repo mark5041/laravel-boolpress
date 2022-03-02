@@ -7,83 +7,36 @@
                 @csrf
                 @method('PATCH')
                 <div class="mb-3">
-                    <label for="title" class="form-label">Comic Title</label>
-                    <input type="text" class="form-control" id="title" name="title" value="{{ $comic->title}}">
+                    <select class="form-select" name="category_id">
+                        <option value="">Select a category</option>
+                        @foreach ($categories as $category)
+                            <option @if (old('category_id', $comic->category_id) == $category->id) selected @endif value="{{ $category->id }}">
+                                {{ $category->name }} - {{ $category->id }}</option>
+                        @endforeach
+                    </select>
+                    @error('category_id')
+                        <div class="alert alert-danger mt-3">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="title" name="title"
+                        value=" {{ old('title', $comic->title) }}">
                     @error('title')
-                        <div class="alert alert-danger">
-                            {{$message}}
+                        <div class="alert alert-danger mt-3">
+                            {{ $message }}
                         </div>
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="description" class="form-label">Description</label>
-                    <textarea class="form-control" id="description" name="description" rows="3">{{ $comic->description}}</textarea>
+                    <label for="content" class="form-label">description</label>
+                    <textarea class="form-control" id="description" rows="3"
+                        name="content"> {{ old('description', $comic->description) }}</textarea>
                     @error('description')
-                        <div class="alert alert-danger">
-                            {{$message}}
-                        </div>
-                    @enderror
-                </div>
-                <div class="mb-3">
-                    <label for="thumb" class="form-label">Link Thumb</label>
-                    <input type="text" class="form-control" id="thumb" name="thumb" value="{{ $comic->thumb}}">
-                    @error('thumb')
-                        <div class="alert alert-danger">
-                            {{$message}}
-                        </div>
-                    @enderror
-                </div>
-                <div class="mb-3">
-                    <label for="price" class="form-label">Price</label>
-                    <input type="number" step="0.01" class="form-control" id="price" name="price" value="{{ $comic->price}}">
-                    @error('price')
-                        <div class="alert alert-danger">
-                            {{$message}}
-                        </div>
-                    @enderror
-                </div>
-                <div class="mb-3">
-                    <label for="sale_date" class="form-label">Sale Date</label>
-                    <input type="date" class="form-control" id="sale_date" name="sale_date" value="{{ $comic->sale_date}}">
-                    @error('sale_date')
-                        <div class="alert alert-danger">
-                            {{$message}}
-                        </div>
-                    @enderror
-                </div>
-                <div class="mb-3">
-                    <label for="type" class="form-label">Type</label>
-                    <input type="text" class="form-control" id="type" name="type" value="{{ $comic->type}}">
-                    @error('type')
-                        <div class="alert alert-danger">
-                            {{$message}}
-                        </div>
-                    @enderror
-                </div>
-                <div class="mb-3">
-                    <label for="artist" class="form-label">Artist</label>
-                    <input type="text" class="form-control" id="artists" name="artists" value="{{ $comic->artists}}">
-                    @error('artists')
-                        <div class="alert alert-danger">
-                            {{$message}}
-                        </div>
-                    @enderror
-                </div>
-                <div class="mb-3">
-                    <label for="writer" class="form-label">Writer</label>
-                    <input type="text" class="form-control" id="writers" name="writers" value="{{ $comic->writers}}">
-                    @error('writers')
-                        <div class="alert alert-danger">
-                            {{$message}}
-                        </div>
-                    @enderror
-                </div>
-                <div class="mb-3">
-                    <label for="quantity" class="form-label">Quantity</label>
-                    <input type="text" class="form-control" id="quantity" name="quantity" value="{{ $comic->quantity}}">
-                    @error('quantity')
-                        <div class="alert alert-danger">
-                            {{$message}}
+                        <div class="alert alert-danger mt-3">
+                            {{ $message }}
                         </div>
                     @enderror
                 </div>
