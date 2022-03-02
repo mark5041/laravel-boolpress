@@ -18,7 +18,7 @@ class ComicController extends Controller
         'description' => 'nullable|max:255',
         'thumb' => 'required',
         'price' => 'required|max:100',
-        'sale_date' => 'nullable|date|after:tomorrow',
+        'sale_date' => 'nullable',
         'artists' => 'required',
         'writers' => 'required',
         'quantity' => 'required|integer'
@@ -116,28 +116,22 @@ class ComicController extends Controller
         }
 
 
-        $validator = $request->validate(
-            [
-                'title' => 'required|max:240',
-                'thumb' => 'required',
-                'category_id' => 'exists:App\Category,id'
-            ]
-        );
+        $request->validate($this->validator);
 
         if ($data['title'] != $comic->title) {
             $comic->title = $data['title'];
             $comic->slug = $comic->createSlug($data['title']);
         }
-        if ($data['thumb'] != $comic->content) {
-            $comic->content = $data['thumb'];
-        }
+
         if ($data['category_id'] != $comic->category_id) {
             $comic->category_id = $data['category_id'];
         }
 
+
         $comic->update();
 
-        return redirect()->route('admin.comics.show', $comic);
+
+        return redirect()->route('admin.comics.show', ['comic' => $comic]);
     }
 
     /**
