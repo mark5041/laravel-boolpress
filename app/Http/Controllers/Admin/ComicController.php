@@ -17,7 +17,6 @@ class ComicController extends Controller
         'thumb' => 'required',
         'price' => 'required|max:100',
         'sale_date' => 'nullable|date|after:tomorrow',
-        'type' => 'required',
         'artists' => 'required',
         'writers' => 'required',
         'quantity' => 'required|integer'
