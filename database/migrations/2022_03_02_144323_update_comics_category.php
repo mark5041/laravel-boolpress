@@ -30,8 +30,8 @@ class UpdateComicsCategory extends Migration
      */
     public function down()
     {
-        Schema::table('posts', function (Blueprint $table) {
-            $table->dropForeign('posts_category_id_foreign');
+        Schema::table('comics', function (Blueprint $table) {
+            $table->dropForeign('comics_category_id_foreign');
             $table->dropColumn('category_id');
         });
     }
