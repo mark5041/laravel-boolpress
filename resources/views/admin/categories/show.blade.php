@@ -30,11 +30,11 @@
                 <tbody>
                     @foreach ($category->comics()->get() as $comic)
                         <tr>
-                            <td>{{ $comic->id }}</td>
+                            <td>{{ $category->name }}</td>
                             <td>{{ $comic->title }}</td>
                             <td>{{ $comic->created_at }}</td>
                             <td>{{ $comic->updated_at }}</td>
-                            <td><a class="btn btn-primary" href="{{ route('admin.comics.show', $comics->slug) }}">View</a>
+                            <td><a class="btn btn-primary" href="{{ route('admin.comics.show', $comic->slug) }}">View</a>
                             </td>
                         </tr>
                     @endforeach

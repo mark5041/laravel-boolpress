@@ -29,7 +29,7 @@ class Category extends Model
      *
      * @return void
      */
-    public function posts()
+    public function comics()
     {
         return $this->hasMany('App\Comic');
     }
