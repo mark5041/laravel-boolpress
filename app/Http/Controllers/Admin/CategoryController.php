@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -24,5 +25,14 @@ class CategoryController extends Controller
     public function show(Category $category)
     {
         return view('admin.categories.show', ['category' => $category]);
+    }
+
+    public function destroy(Category $category)
+    {
+        $category->delete();
+
+        return redirect()
+            ->route('admin.comics.index')
+            ->with('status', "Category $category->title and relative comics are deleted!");
     }
 }

@@ -140,9 +140,13 @@ class ComicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Comic $comic)
     {
-        //
+        $comic->delete();
+
+        return redirect()
+            ->route('admin.comics.index')
+            ->with('status', "Comic $comic->title deleted!");
     }
 }
 ?>

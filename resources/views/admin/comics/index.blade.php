@@ -49,7 +49,7 @@
                                 @if (Auth::user()->id === $comic->user_id)
                                     <a class="btn btn-info" href="{{ route('admin.comics.edit', $comic->slug) }}">Modify</a>
                                 @endif
-                                <form action="{{ route('admin.comics.destroy', $comic->id) }}" method="post">
+                                <form action="{{ route('admin.comics.destroy', $comic) }}" method="post">
                                     @csrf
                                     @method('DELETE')
                                     <input class="btn btn-danger" type="submit" value="Delete">

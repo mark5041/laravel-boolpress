@@ -34,8 +34,10 @@
                             <td>{{ $category->name }}</td>
                             <td>{{ $category->created_at }}</td>
                             <td>{{ $category->updated_at }}</td>
-                            <td><a class="btn btn-primary"
+                            <td>
+                                <a class="btn btn-primary" 
                                     href="{{ route('admin.categories.show', $category->slug) }}">View</a>
+                                <a class="btn btn-danger" href="{{ route('admin.categories.destroy', $category) }}">Delete</a>
                             </td>
                         </tr>
                     @endforeach
