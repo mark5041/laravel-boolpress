@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Comic;
 use App\User;
+use App\Category;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
@@ -23,13 +24,14 @@ class ComicsTableSeeder extends Seeder
             $newComic->thumb = $faker->imageUrl(350, 350, true);
             $newComic->price = $faker->randomFloat(null, 0, 1000);
             $newComic->sale_date = $faker->date();
-            $newComic->type = $faker->randomElement(['comic book', 'art book', 'special', 'special collection']);
             $newComic->artists = $faker->name();
             $newComic->writers = $faker->name();
             $newComic->quantity = $faker->numberBetween(0, 10);
             $string =  "$newComic->title-$i";
             $newComic->slug = Str::slug($string, '-');
             $newComic->user_id = User::inRandomOrder()->first()->id;
+            $category = Category::all()->random();
+            $newComic->category_id = $category->id;
             $newComic->save();
         }
     }
