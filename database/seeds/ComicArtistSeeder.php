@@ -12,6 +12,7 @@ class ComicArtistSeeder extends Seeder
      *
      * @return void
      */
+
     public function run()
     {
         $artists = Artist::all();
@@ -19,9 +20,10 @@ class ComicArtistSeeder extends Seeder
         foreach($comics as $comic)
         {
             $randNumOfArtist = rand(1, 5);
-            for($i=0; $i < $randNumOfArtist; $i++)
+            $artistOf = $artists->random($randNumOfArtist);
+            foreach($artistOf as $who)
             {
-                $comic->artist()->attach($artists->random());
+                $comic->artist()->attach($who);
             }
         }
     }

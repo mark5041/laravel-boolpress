@@ -16,8 +16,6 @@ class Comic extends Model
         'price',
         'sale_date',
         'type',
-        'artists',
-        'writers',
         'slug',
         'quantity'
     ];
