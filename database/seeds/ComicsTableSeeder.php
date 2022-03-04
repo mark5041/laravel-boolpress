@@ -24,8 +24,6 @@ class ComicsTableSeeder extends Seeder
             $newComic->thumb = $faker->imageUrl(350, 350, true);
             $newComic->price = $faker->randomFloat(null, 0, 1000);
             $newComic->sale_date = $faker->date();
-            $newComic->artists = $faker->name();
-            $newComic->writers = $faker->name();
             $newComic->quantity = $faker->numberBetween(0, 10);
             $string =  "$newComic->title-$i";
             $newComic->slug = Str::slug($string, '-');
