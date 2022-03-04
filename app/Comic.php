@@ -32,6 +32,18 @@ class Comic extends Model
         return $this->belongsTo('App\Category');
     }
 
+
+
+    public function artist()
+    {
+        return $this->belongsToMany('App\Artist');
+    }
+
+    public function writer()
+    {
+        return $this->belongsToMany('App\Writer');
+    }
+
     /**
      * Get the route key for the model.
      *
