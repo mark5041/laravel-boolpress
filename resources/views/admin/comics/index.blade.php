@@ -47,7 +47,7 @@
                             </td>
                             <td>
                                  @foreach ($comic->artist()->get() as $artist)
-                                    {{ $writer->name }},
+                                    {{ $artist->name }},
                                 @endforeach
                             </td>
                             <td>{{ $comic->price }} €</td>

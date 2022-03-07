@@ -33,7 +33,7 @@
                 <div class="mb-3">
                     <label for="content" class="form-label">description</label>
                     <textarea class="form-control" id="description" rows="3"
-                        name="content">{{ old('description', $comic->description) }}</textarea>
+                        name="description">{{ old('description', $comic->description) }}</textarea>
                     @error('description')
                         <div class="alert alert-danger mt-3">
                             {{ $message }}
@@ -70,7 +70,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="artists" class="form-label">Artists</label>
-                    <textarea class="form-control" id="artists" rows="3" name="content"
+                    <textarea class="form-control" id="artists" rows="3" name="artists"
                         >@php 
                             $artists = $comic->artist()->get();
                             $numArtists = count($artists);
@@ -89,10 +89,15 @@
                             }
                             
                         @endphp </textarea>
+                    @error('artists')
+                        <div class="alert alert-danger mt-3">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
                 <div class="mb-3">
                     <label for="writers" class="form-label">Writers</label>
-                    <textarea class="form-control" id="writers" rows="3"name="content"
+                    <textarea class="form-control" id="writers" rows="3" name="artists"
                         >@php 
                             $writers = $comic->writer()->get();
                             $numwriters = count($writers);
@@ -111,7 +116,7 @@
                             }
                             
                         @endphp </textarea>
-                        @error('writer')
+                        @error('writers')
                             <div class="alert alert-danger mt-3">
                                 {{ $message }}
                             </div>

@@ -19,5 +19,10 @@
                 </div>
             </div>
         </div>
+        <div class="row mt-4">
+            <div class="col">
+                <a class="btn btn-primary" href="{{ route('admin.comics.index') }}">Go to Comics</a>
+            </div>
+        </div>
     </div>
 @endsection
