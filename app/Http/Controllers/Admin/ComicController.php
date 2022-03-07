@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Comic;
 use App\User;
 use App\Category;
+use App\Writer;
+use App\Artist;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,8 +21,6 @@ class ComicController extends Controller
         'thumb' => 'required',
         'price' => 'required|max:100',
         'sale_date' => 'nullable',
-        'artists' => 'required',
-        'writers' => 'required',
         'quantity' => 'required|integer'
     ];
     /**
@@ -97,8 +97,9 @@ class ComicController extends Controller
             abort('403');
         }
         $categories = Category::all();
+        $artists = Artist::all();
 
-        return view('admin.comics.edit', ['comic' => $comic, 'categories' => $categories]);
+        return view('admin.comics.edit', ['comic' => $comic, 'categories' => $categories, 'artists' => $artists]);
     }
 
     /**

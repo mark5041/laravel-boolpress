@@ -33,7 +33,7 @@
                 <div class="mb-3">
                     <label for="content" class="form-label">description</label>
                     <textarea class="form-control" id="description" rows="3"
-                        name="content"> {{ old('description', $comic->description) }}</textarea>
+                        name="content">{{ old('description', $comic->description) }}</textarea>
                     @error('description')
                         <div class="alert alert-danger mt-3">
                             {{ $message }}
@@ -70,21 +70,52 @@
                 </div>
                 <div class="mb-3">
                     <label for="artists" class="form-label">Artists</label>
-                    <input type="text" class="form-control" id="artists" name="artists" value="{{ old('artists', $comic->artists) }}">
-                    @error('price')
-                        <div class="alert alert-danger mt-3">
-                            {{ $message }}
-                        </div>
-                    @enderror
+                    <textarea class="form-control" id="artists" rows="3" name="content"
+                        >@php 
+                            $artists = $comic->artist()->get();
+                            $numArtists = count($artists);
+                            $i = 0;
+                            foreach($artists as $artist)
+                            {
+                                $i++;
+                                if($numArtists === $i)
+                                {
+                                    echo "$artist->name.";
+                                }
+                                else
+                                {
+                                    echo "$artist->name, ";
+                                }
+                            }
+                            
+                        @endphp </textarea>
                 </div>
                 <div class="mb-3">
                     <label for="writers" class="form-label">Writers</label>
-                    <input type="text" class="form-control" id="writers" name="writers" value="{{ old('writers', $comic->writers) }}">
-                    @error('price')
-                        <div class="alert alert-danger mt-3">
-                            {{ $message }}
-                        </div>
-                    @enderror
+                    <textarea class="form-control" id="writers" rows="3"name="content"
+                        >@php 
+                            $writers = $comic->writer()->get();
+                            $numwriters = count($writers);
+                            $i = 0;
+                            foreach($writers as $writer)
+                            {
+                                $i++;
+                                if($numwriters === $i)
+                                {
+                                    echo "$writer->name.";
+                                }
+                                else
+                                {
+                                    echo "$writer->name, ";
+                                }
+                            }
+                            
+                        @endphp </textarea>
+                        @error('writer')
+                            <div class="alert alert-danger mt-3">
+                                {{ $message }}
+                            </div>
+                        @enderror
                 </div>
                 <div class="mb-3">
                     <label for="quantity" class="form-label">Writers</label>
