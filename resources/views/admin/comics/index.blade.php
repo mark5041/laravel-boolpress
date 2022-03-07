@@ -41,14 +41,42 @@
                         <tr>
                             <td>{{ $comic->title }}</td>
                             <td>
-                                @foreach ($comic->writer()->get() as $writer)
-                                    {{ $writer->name }},
-                                @endforeach
+                                @php 
+                                    $writers = $comic->writer()->get();
+                                    $numwriters = count($writers);
+                                    $i = 0;
+                                    foreach($writers as $writer)
+                                    {
+                                        $i++;
+                                        if($numwriters === $i)
+                                        {
+                                            echo "$writer->name.";
+                                        }
+                                        else
+                                        {
+                                            echo "$writer->name, ";
+                                        }
+                                    }
+                                @endphp
                             </td>
                             <td>
-                                 @foreach ($comic->artist()->get() as $artist)
-                                    {{ $artist->name }},
-                                @endforeach
+                                @php 
+                                    $artists = $comic->artist()->get();
+                                    $numartists = count($artists);
+                                    $i = 0;
+                                    foreach($artists as $artist)
+                                    {
+                                        $i++;
+                                        if($numartists === $i)
+                                        {
+                                            echo "$artist->name.";
+                                        }
+                                        else
+                                        {
+                                            echo "$artist->name, ";
+                                        }
+                                    }
+                                @endphp
                             </td>
                             <td>{{ $comic->price }} €</td>
                             <td>{{ $comic->sale_date }}</td>

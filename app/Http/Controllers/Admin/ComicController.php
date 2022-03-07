@@ -71,6 +71,61 @@ class ComicController extends Controller
         $comic->slug = $comic->createSlug($data['title']);
         $comic->save();
 
+        if (!empty($data['artists'])) {
+            $artists = explode(", ", $data['artists']);
+            $artist_id = [];
+            foreach($artists as $element)
+            {
+                $artist = rtrim($element, ".");
+                $checkArtist = Artist::where('name', $artist)->first();
+                if(empty($checkArtist))
+                {
+                    $newArtist = new Artist();
+                    $newArtist->name = $artist;
+                    $newArtist->save();
+                }
+                $item_id = Artist::where('name', $artist)->first();
+                array_push($artist_id, $item_id->id);
+            }
+
+            
+
+            $comic->artist()->sync($artist_id);
+        } 
+        else 
+        {
+            //if we don't have tags we detach all
+            $comic->artist()->detach();
+        }
+
+
+        if (!empty($data['writers'])) {
+            $writers = explode(", ", $data['writers']);
+            $writer_id = [];
+            foreach($writers as $element)
+            {
+                $writer = rtrim($element, ".");
+                $checkWriter = Writer::where('name', $writer)->first();
+                if(empty($checkWriter))
+                {
+                    $newwriter = new writer();
+                    $newwriter->name = $writer;
+                    $newwriter->save();
+                }
+                $item_id = Writer::where('name', $writer)->first();
+                array_push($writer_id, $item_id->id);
+            }
+        
+            
+        
+            $comic->writer()->sync($writer_id);
+        } 
+        else 
+        {
+            //if we don't have tags we detach all
+            $comic->writer()->detach();
+        }
+
         return redirect()->route('admin.comics.show', $comic->slug);
     }
 
@@ -123,6 +178,7 @@ class ComicController extends Controller
                 'thumb' => 'required',
                 'price' => 'required|max:100',
                 'artists' => 'required',
+                'writers' => 'required',
                 'sale_date' => 'nullable',
                 'quantity' => 'required|integer'
             ]

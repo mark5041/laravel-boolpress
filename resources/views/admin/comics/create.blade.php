@@ -52,11 +52,17 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="type" class="form-label">Type</label>
-                    <input type="text" class="form-control" id="type" name="type">
-                    @error('type')
-                        <div class="alert alert-danger">
-                            {{$message}}
+                <label for="category_id" class="form-label">Category</label>
+                    <select class="form-select" name="category_id">
+                        <option value="">Select a category</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">
+                                {{ $category->name }} - {{ $category->id }}</option>
+                        @endforeach
+                    </select>
+                    @error('category_id')
+                        <div class="alert alert-danger mt-3">
+                            {{ $message }}
                         </div>
                     @enderror
                 </div>
@@ -80,7 +86,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="quantity" class="form-label">Quantity</label>
-                    <input type="text" class="form-control" id="quantity" name="quantity">
+                    <input type="number" class="form-control" id="quantity" name="quantity">
                     @error('quantity')
                         <div class="alert alert-danger">
                             {{$message}}

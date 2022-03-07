@@ -97,7 +97,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="writers" class="form-label">Writers</label>
-                    <textarea class="form-control" id="writers" rows="3" name="artists"
+                    <textarea class="form-control" id="writers" rows="3" name="writers"
                         >@php 
                             $writers = $comic->writer()->get();
                             $numwriters = count($writers);
