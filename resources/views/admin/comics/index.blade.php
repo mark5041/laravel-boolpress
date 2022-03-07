@@ -28,28 +28,36 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Title</th>
-                            <th>Writers</th>
-                            <th>Author</th>
-                            <th>Price</th>
-                            <th>Date Release</th>
-                            <th> </th>
+                            <th class="col-1">Title</th>
+                            <th class="col-3">Writers</th>
+                            <th class="col-3">Author</th>
+                            <th class="col-1">Price</th>
+                            <th class="col-1">Date Release</th>
+                            <th class="col-3"> </th>
                         </tr>
                     </thead>
                     <tbody>
                     @foreach ($comics as $comic)
                         <tr>
                             <td>{{ $comic->title }}</td>
-                            <td>{{ $comic->writers }}</td>
-                            <td>{{ $comic->artists }}</td>
+                            <td>
+                                @foreach ($comic->writer()->get() as $writer)
+                                    {{ $writer->name }},
+                                @endforeach
+                            </td>
+                            <td>
+                                 @foreach ($comic->artist()->get() as $artist)
+                                    {{ $writer->name }},
+                                @endforeach
+                            </td>
                             <td>{{ $comic->price }} €</td>
                             <td>{{ $comic->sale_date }}</td>
-                            <td class="d-flex justify-content-space-around">
+                            <td>
                                 <a class="btn btn-secondary" href="{{ route('admin.comics.show', $comic) }}">View</a>
                                 @if (Auth::user()->id === $comic->user_id)
                                     <a class="btn btn-info" href="{{ route('admin.comics.edit', $comic->slug) }}">Modify</a>
                                 @endif
-                                <form action="{{ route('admin.comics.destroy', $comic) }}" method="post">
+                                <form class="d-inline" action="{{ route('admin.comics.destroy', $comic) }}" method="post">
                                     @csrf
                                     @method('DELETE')
                                     <input class="btn btn-danger" type="submit" value="Delete">
