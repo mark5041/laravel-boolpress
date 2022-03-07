@@ -8,6 +8,7 @@ use App\Category;
 use App\Writer;
 use App\Artist;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -64,6 +65,11 @@ class ComicController extends Controller
                 'category_id' => 'exists:App\Category,id'
             ]
         );
+
+        if (!empty($data['thumb'])) {
+            $img_path = Storage::put('uploads', $data['thumb']);
+            $data['thumb'] = $img_path;
+        }
 
 
         $comic = new Comic();
@@ -183,6 +189,13 @@ class ComicController extends Controller
                 'quantity' => 'required|integer'
             ]
         );
+
+        if (!empty($data['thumb'])) {
+            Storage::delete($comic->thumb);
+
+            $img_path = Storage::put('uploads', $data['thumb']);
+            $comic->thumb = $img_path;
+        }
 
         if ($data['title'] != $comic->title) {
             $comic->title = $data['title'];

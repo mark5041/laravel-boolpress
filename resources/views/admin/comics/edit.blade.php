@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <form class="col-5" action="{{ route('admin.comics.update', $comic) }}" method="post">
+            <form class="col-5" action="{{ route('admin.comics.update', $comic) }}" method="post" enctype="multipart/form-data">>
                 @csrf
                 @method('PATCH')
                 <div class="mb-3">
@@ -40,16 +40,22 @@
                         </div>
                     @enderror
                 </div>
+
+                @if (!empty($comic->thumb))
+                <div class="mb-3">
+                    <img class="w-50" src="{{ asset('storage/' . $comic->thumb) }}" alt="{{ $comic->title }}">
+                </div>
+                @endif
                 <div class="mb-3">
                     <label for="thumb" class="form-label">Thumb</label>
-                    <input type="text" class="form-control" id="thumb" name="thumb"
-                        value=" {{ old('thumb', $comic->thumb) }}">
+                    <input class="form-control" type="file" id="thumb" name="thumb">
                     @error('thumb')
-                        <div class="alert alert-danger mt-3">
+                        <div class="alert alert-danger">
                             {{ $message }}
                         </div>
                     @enderror
                 </div>
+
                 <div class="mb-3">
                     <label for="price" class="form-label">Price</label>
                     <input type="number" step="0.01" class="form-control" id="price" name="price" value="{{ old('price', $comic->price) }}">

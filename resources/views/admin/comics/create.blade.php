@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <form class="col-5" action="{{ route('admin.comics.store') }}" method="post">
+            <form class="col-5" action="{{ route('admin.comics.store') }}" method="post" enctype="multipart/form-data">>
                 @csrf
                 @method('POST')
                 <div class="mb-3">
@@ -26,10 +26,10 @@
                 </div>
                 <div class="mb-3">
                     <label for="thumb" class="form-label">Link Thumb</label>
-                    <input type="text" class="form-control" id="thumb" name="thumb">
+                    <input class="form-control" type="file" id="thumb" name="thumb">
                     @error('thumb')
-                        <div class="alert alert-danger">
-                            {{$message}}
+                        <div class="alert alert-danger mt-3">
+                            {{ $message }}
                         </div>
                     @enderror
                 </div>
