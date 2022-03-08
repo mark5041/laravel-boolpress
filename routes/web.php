@@ -30,3 +30,7 @@ Route::middleware('auth')
         Route::resource('categories', 'CategoryController');
         Route::resource('comics', 'ComicController');
     });
+
+Route::get('{any?}', function ($name = null) {
+    return view('guest.home');
+})->where('any', '.*');

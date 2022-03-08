@@ -26,10 +26,10 @@ import Axios from "axios";
       }
     },
     created() {
-      this.getPosts('http://127.0.0.1:8000/api/comics');
+      this.getComics('http://127.0.0.1:8000/api/comics');
     },
     methods: {
-      getPosts(url){
+      getComics(url){
           Axios.get(url).then(
             (result) => {
               this.comics = result.data.results.data;

@@ -22,8 +22,9 @@
 </head>
 <body>
 
+        @include('partials.header')
         <main class="py-4">
-            <div class="container-fluid">
+            <div class="container">
                 <div class="row">
                     <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
                         <div class="position-sticky pt-3">
@@ -35,21 +36,15 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{route('admin.posts.index')}}">
+                                    <a class="nav-link" href="{{route('admin.comics.index')}}">
                                         <i class="bi bi-files"></i>
-                                        All Posts
+                                        All comics
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('admin.categories.index') }}">
                                         <i class="bi bi-files"></i>
                                         All Categories
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('admin.posts.indexUser') }}">
-                                        <i class="bi bi-files"></i>
-                                        My Posts
                                     </a>
                                 </li>
                             </ul>

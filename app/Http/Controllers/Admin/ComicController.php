@@ -31,7 +31,7 @@ class ComicController extends Controller
      */
     public function index()
     {
-        $comics = Comic::paginate(8);
+        $comics = Comic::paginate(5);
         return view('admin.comics.index', ['comics' => $comics]);
     }
 
