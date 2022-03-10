@@ -1,42 +1,45 @@
-
 <template>
   <div class="container">
-    <div class="row">
-      <div class="col-3 mt-2" v-for="(comic, index) in comics" :key="index">
+    <div class="row g-4" v-if="cards.products">
+      <div class="col-4" v-for="(product, index) in cards.products" :key="index">
         <div class="card">
-          <img src="/storage/uploads/" :alt="comic.name">
+          <img src="\storage\app\uploads\default.png" class="card-img-top" :alt="product.name">
           <div class="card-body">
-            <h5 class="card-title">{{ comic.title }}</h5>
-            <p class="card-text">{{ comic.description }}</p>
+            <h5 class="card-title">{{ product.name }}</h5>
+            <p class="card-text">{{ product.description }}</p>
           </div>
+          <router-link class="btn btn-secondary" :to="{ name: 'product', params: { id: product.id } }">View</router-link>
         </div>
       </div>
+    </div>
+    <div class="row" v-if="cards.prev_page_url || cards.next_page_url">
+      <ul class="list-inline d-flex justify-content-center">
+        <li class="list-inline-item"> 
+          <button v-if="cards.prev_page_url" class="btn btn-primary" @click="changePage('prev_page_url')">Prev</button>
+        </li>
+        <li class="list-inline-item"> 
+          <button v-if="cards.next_page_url" class="btn btn-primary" @click="changePage('next_page_url')">Next</button>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
 
+
 <script>
-import Axios from "axios";
   export default {
     name: "Main",
-    data() {
-      return {
-        comics: null
-      }
-    },
-    created() {
-      this.getComics('http://127.0.0.1:8000/api/comics');
-    },
+    props: ['cards'],
     methods: {
-      getComics(url){
-          Axios.get(url).then(
-            (result) => {
-              this.comics = result.data.results.data;
-            });
+      changePage(vs) {
+        this.$emit('changePage', vs);
       }
     }
   }
 </script>
 
 <style lang="scss" scoped>
+.container > .row:nth-child(2) {
+  margin-top: 3em;
+}
 </style>

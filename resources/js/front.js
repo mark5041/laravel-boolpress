@@ -2,6 +2,7 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+Vue.use(VueRouter);
 import App from './views/App';
 import VueRouter from 'vue-router';
 import Home from './pages/Home.vue';
@@ -9,8 +10,9 @@ import About from './pages/About.vue';
 import Products from './pages/Products.vue';
 import Product from './pages/Product.vue';
 
-const route = new VueRouter(
+const router = new VueRouter(
 {
+    mode: 'history',
     routes: 
     [
         {
@@ -39,5 +41,5 @@ const route = new VueRouter(
 const app = new Vue({
     el: '#app',
     render: h => h(App),
-
+    router
 });

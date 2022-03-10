@@ -19,4 +19,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/comics', 'Api\ComicController@index');
+Route::get('v1/products', 'Api\ComicController@index');
+Route::get('v1/products/random', 'Api\ComicController@inRandomOrder');
+Route::get('v1/products/search', 'Api\ComicController@search');
+Route::get('v1/products/{id}', 'Api\ComicController@show');
+
