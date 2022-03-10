@@ -27,11 +27,11 @@ export default {
                 },
                 {
                     label: 'comics',
-                    routeName: 'comics'
+                    routeName: 'products'
                 },
                 {
                     label: 'shop',
-                    routeName: 'shop'
+                    routeName: 'products'
                 }
             ]
         }

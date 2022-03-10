@@ -1,5 +1,8 @@
 <template>
   <div>
+        <div class="row text-center">
+          <h1>i più venduti</h1>
+        </div>
         <Main :cards="cards" @changePage="changePage($event)"></Main>
   </div>
 </template>
@@ -35,6 +38,7 @@ import Main from '../components/Main.vue';
       getProducts(url){
           Axios.get(url).then(
             (result) => {
+              console.log(result.data.results.data);
               this.cards.products = result.data.results.data;
               this.cards.next_page_url = result.data.results.next_page_url;
               this.cards.prev_page_url = result.data.results.prev_page_url;
@@ -46,5 +50,11 @@ import Main from '../components/Main.vue';
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+.row {
+  margin: 2em 0;
+  h1 {
+    text-transform: uppercase;
+  }
+}
 </style>

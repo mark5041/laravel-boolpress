@@ -1,11 +1,11 @@
 <template>
   <div class="container">
     <div class="row g-4" v-if="cards.products">
-      <div class="col-4" v-for="(product, index) in cards.products" :key="index">
+      <div class="col-12 col-md-4" v-for="(product, index) in cards.products" :key="index">
         <div class="card">
-          <img src="\storage\app\uploads\default.png" class="card-img-top" :alt="product.name">
+          <img src="\storage\app\uploads\default.png" class="card-img-top" :alt="product.title">
           <div class="card-body">
-            <h5 class="card-title">{{ product.name }}</h5>
+            <h5 class="card-title">{{ product.title }}</h5>
             <p class="card-text">{{ product.description }}</p>
           </div>
           <router-link class="btn btn-secondary" :to="{ name: 'product', params: { id: product.id } }">View</router-link>
@@ -42,6 +42,13 @@
     methods: {
       changePage(vs) {
         this.$emit('changePage', vs);
+      }
+    },
+    watch: {
+      cards: {
+        function () {
+          console.log(this.cards);
+        }
       }
     }
   }
