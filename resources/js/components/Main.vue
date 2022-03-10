@@ -13,12 +13,21 @@
       </div>
     </div>
     <div class="row" v-if="cards.prev_page_url || cards.next_page_url">
-      <ul class="list-inline d-flex justify-content-center">
+      <ul class="list-inline d-flex justify-content-center align-items-center">
+        <li v-if="!cards.next_page_url && cards.prev_page_url" class="list-inline-item"> 
+          <h1> {{cards.current_page}} </h1>
+        </li>
         <li class="list-inline-item"> 
           <button v-if="cards.prev_page_url" class="btn btn-primary" @click="changePage('prev_page_url')">Prev</button>
         </li>
+        <li v-if="cards.prev_page_url && cards.next_page_url" class="list-inline-item"> 
+          <h1>{{cards.current_page}}</h1>
+        </li>
         <li class="list-inline-item"> 
           <button v-if="cards.next_page_url" class="btn btn-primary" @click="changePage('next_page_url')">Next</button>
+        </li>
+        <li v-if="!cards.prev_page_url" class="list-inline-item"> 
+          <h1> {{cards.current_page}} </h1>
         </li>
       </ul>
     </div>
