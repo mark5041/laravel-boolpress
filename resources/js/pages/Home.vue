@@ -31,6 +31,7 @@ import Main from '../components/Main.vue';
     methods: {
       changePage(vs) {
         let url = this.cards[vs];
+        console.log(url);
         if(url) {
           this.getProducts(url);
         }

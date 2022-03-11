@@ -12,10 +12,11 @@ class ComicController extends Controller
 {
     public function index()
     {
-        $comics = Comic::orderByDesc('quantity')->limit(9)->get();
+        $comics = Comic::orderByDesc('quantity')->paginate(9);
 
         return response()->json([
             'response' => true,
+            'count' => count($comics),
             'results' =>  [
                 'data' => $comics
             ],
@@ -25,7 +26,14 @@ class ComicController extends Controller
     public function search(Request $request)
     {
         $data = $request->all();
-        $comics = Comic::where('title', 'like', '%'.$data['searchedElement'].'%')->paginate(9);
+        if($data['searchedElement'] == '')
+        {
+            $comics = null;
+        }
+        else
+        {
+            $comics = Comic::where('title', 'like', '%'.$data['searchedElement'].'%')->paginate(9);
+        }
 
         // if (array_key_exists('searchedElement', $data))
         // {
@@ -51,6 +59,7 @@ class ComicController extends Controller
 
         return response()->json([
             'response' => true,
+            'count' => count($comics),
             'results' =>  $comics
         ]);
     }

@@ -26,6 +26,7 @@ import Main from '../components/Main.vue';
           next_page_url: null,
           prev_page_url: null,
           current_page: null,
+          count: null,
         },
         form: {
             searchedElement: '',
@@ -57,11 +58,19 @@ import Main from '../components/Main.vue';
                 params: this.form
             }).then(
                 (result) => {
-                    console.log(result.data.results.data);
-                    this.cards.products = result.data.results.data;
-                    this.cards.next_page_url = result.data.results.next_page_url;
-                    this.cards.prev_page_url = result.data.results.prev_page_url;
+                    if(result.data.results != null)
+                    {
+                      this.cards.products = result.data.results.data;
+                      this.cards.count = result.data.results.count;
+                      this.cards.next_page_url = result.data.results.next_page_url;
+                      this.cards.prev_page_url = result.data.results.prev_page_url;
+                    }
+                    else
+                    {
+                      this.cards == null;
+                    }
                 });
+            
         }
       
     },
@@ -69,17 +78,18 @@ import Main from '../components/Main.vue';
     {
         form: 
             {
-                handler(val)
+                handler(event)
                 {
+                    console.log(this.form.searchedElement);
                     if(this.searching == false)
                     {
                         setTimeout(() => {
-                            this.searchProducts;
+                            this.searchProducts();
                             this.searching = false;
-                        }, 3000);
+                        }, 2000);
                         this.searching = true;
+                        event.preventDefault();
                     }
-                    event.preventDefault();
                 },
                 deep: true
             },
