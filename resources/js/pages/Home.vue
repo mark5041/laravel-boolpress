@@ -39,11 +39,11 @@ import Main from '../components/Main.vue';
       getProducts(url){
           Axios.get(url).then(
             (result) => {
-              console.log(result.data.results.data);
-              this.cards.products = result.data.results.data;
-              this.cards.next_page_url = result.data.results.next_page_url;
-              this.cards.prev_page_url = result.data.results.prev_page_url;
-              this.cards.current_page = result.data.results.current_page;
+              console.log(result.data.results.data.data);
+              this.cards.products = result.data.results.data.data;
+              this.cards.next_page_url = result.data.results.data.next_page_url;
+              this.cards.prev_page_url = result.data.results.data.prev_page_url;
+              this.cards.current_page = result.data.results.data.current_page;
             });
       }
       

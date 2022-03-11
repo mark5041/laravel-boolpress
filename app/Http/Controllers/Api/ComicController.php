@@ -16,7 +16,7 @@ class ComicController extends Controller
 
         return response()->json([
             'response' => true,
-            'count' => count($comics),
+            'count' => $comics->count(),
             'results' =>  [
                 'data' => $comics
             ],
@@ -26,41 +26,22 @@ class ComicController extends Controller
     public function search(Request $request)
     {
         $data = $request->all();
-        if($data['searchedElement'] == '')
+
+        $comics = Comic::where('id', '>', 0);
+
+        if (array_key_exists('searchedElement', $data))
         {
-            $comics = null;
-        }
-        else
-        {
-            $comics = Comic::where('title', 'like', '%'.$data['searchedElement'].'%')->paginate(9);
+            $comics = $comics->where('title', 'like', '%'.$data['searchedElement'].'%');
         }
 
-        // if (array_key_exists('searchedElement', $data))
-        // {
-            
-        // }
-        // if (
-        //     array_key_exists('orderbycolumn', $data) &&
-        //     array_key_exists('orderbysort', $data)
-        // ) {
-        //     $comics->orderBy($data['orderbycolumn'], $data['orderbysort']);
-        // }
-
-        // if (array_key_exists('tags', $data)) {
-        //     foreach ($data['tags'] as $tag) {
-        //         //fa una join per controllare i tag che sono associati al comic
-        //         $comics->whereHas('tags', function (Builder $query) use ($tag) {
-        //             $query->where('name', '=', $tag);
-        //         });
-        //     }
-        // }
-
-        // $comics = $comics->with(['tags', 'category'])->get();
+        $comics = $comics->paginate(9);
 
         return response()->json([
             'response' => true,
-            'count' => count($comics),
-            'results' =>  $comics
+            'count' =>  $comics->count(),
+            'results' =>  [
+                'data' => $comics
+            ],
         ]);
     }
 }

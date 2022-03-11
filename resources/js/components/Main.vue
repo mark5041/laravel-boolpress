@@ -51,9 +51,10 @@
     },
     watch: {
       cards: {
-        function () {
-          console.log(this.cards);
-        }
+        handler () {
+          console.log(this.cards.products);
+        },
+        deep: true
       }
     }
   }

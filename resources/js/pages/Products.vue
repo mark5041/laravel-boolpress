@@ -47,9 +47,10 @@ import Main from '../components/Main.vue';
         getProducts(url) {
             Axios.get(url).then(
                 (result) => {
-                    this.cards.products = result.data.results.data;
-                    this.cards.next_page_url = result.data.results.next_page_url;
-                    this.cards.prev_page_url = result.data.results.prev_page_url;
+                    this.cards.products = result.data.results.data.data;
+                    this.cards.next_page_url = result.data.results.data.next_page_url;
+                    this.cards.prev_page_url = result.data.results.data.prev_page_url;
+                    this.cards.current_page = result.data.results.data.current_page;
                 });
         },
         searchProducts() {
@@ -60,10 +61,10 @@ import Main from '../components/Main.vue';
                 (result) => {
                     if(result.data.results != null)
                     {
-                      this.cards.products = result.data.results.data;
+                      this.cards.products = result.data.results.data.data;
                       this.cards.count = result.data.results.count;
-                      this.cards.next_page_url = result.data.results.next_page_url;
-                      this.cards.prev_page_url = result.data.results.prev_page_url;
+                      this.cards.next_page_url = result.data.results.data.next_page_url;
+                      this.cards.prev_page_url = result.data.results.data.prev_page_url;
                     }
                     else
                     {
@@ -80,11 +81,11 @@ import Main from '../components/Main.vue';
             {
                 handler(event)
                 {
-                    console.log(this.form.searchedElement);
                     if(this.searching == false)
                     {
                         setTimeout(() => {
                             this.searchProducts();
+                            console.log(this.form.searchedElement);
                             this.searching = false;
                         }, 2000);
                         this.searching = true;
