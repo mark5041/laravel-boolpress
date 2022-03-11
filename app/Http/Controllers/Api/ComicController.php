@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Artist;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
@@ -41,6 +42,22 @@ class ComicController extends Controller
             'count' =>  $comics->count(),
             'results' =>  [
                 'data' => $comics
+            ],
+        ]);
+    }
+
+    public function show($id)
+    {
+        $comic = Comic::find($id);
+        $comic['artists'] = $comic->artist()->get();
+        $comic['writers'] = $comic->writer()->get();
+
+
+        return response()->json([
+            'response' => true,
+            'count' => $comic ? 1 : 0,
+            'results' =>  [
+                'data' => $comic,
             ],
         ]);
     }

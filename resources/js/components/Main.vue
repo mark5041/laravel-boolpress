@@ -52,7 +52,7 @@
     watch: {
       cards: {
         handler () {
-          console.log(this.cards.products);
+          console.log(this.cards.products[1].id);
         },
         deep: true
       }
