@@ -35,6 +35,12 @@ class ComicController extends Controller
             $comics = $comics->where('title', 'like', '%'.$data['searchedElement'].'%');
         }
 
+        if (array_key_exists('orderbysort', $data) && $data['orderbysort'] != null 
+            && array_key_exists('orderbycolumn', $data) && $data['orderbycolumn'] != null)
+        {
+            $comics = $comics->orderBy($data['orderbycolumn'], $data['orderbysort']);
+        }
+
         $comics = $comics->paginate(9);
 
         return response()->json([

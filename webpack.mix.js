@@ -15,3 +15,4 @@ const mix = require('laravel-mix');
  .js('resources/js/front.js', 'public/js')
  .js('node_modules/popper.js/dist/popper.js', 'public/js').sourceMaps()
  .sass('resources/sass/app.scss', 'public/css');
+ mix.disableNotifications();
