@@ -20,7 +20,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('v1/products', 'Api\ComicController@index');
-Route::get('v1/products/random', 'Api\ComicController@inRandomOrder');
 Route::get('v1/products/search', 'Api\ComicController@search');
-Route::get('v1/products/{id}', 'Api\ComicController@show');
+Route::get('v1/products/{id}', 'Api\ComicController@show')->middleware('api.auth');;
 

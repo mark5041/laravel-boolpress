@@ -13,7 +13,9 @@
                     <option value="asc,sale_date">Più recente</option>
                     <option value="desc,sale_date">Meno recente</option>
                 </select>
-              <input class="btn btn-primary mt-3" type="button" value="filtra" @click.prevent="searchProducts">
+              <div>
+                <input class="btn btn-primary mt-3" type="button" value="filtra" @click.prevent="searchProducts">
+              </div>
           </form>
         </div>
         <Main :cards="cards" @changePage="changePage($event)"></Main>

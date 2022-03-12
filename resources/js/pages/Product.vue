@@ -123,7 +123,7 @@ import Axios from "axios";
     },
     methods: {
       getProduct(url){
-          Axios.get(url).then(
+          Axios.get(url, {headers: {'Authorization': 'Bearer n686yd9qnm9b56h'}}).then(
             (result) => {
               console.log(result.data.results.data);
               this.comic = result.data.results.data;
