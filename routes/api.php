@@ -21,5 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('v1/products', 'Api\ComicController@index');
 Route::get('v1/products/search', 'Api\ComicController@search');
-Route::get('v1/products/{id}', 'Api\ComicController@show')->middleware('api.auth');;
+Route::get('v1/products/{id}', 'Api\ComicController@show')->middleware('api.auth');
+
+Route::post('v1/contacts', 'Api\ContactController@sendMessage')->middleware('api.auth');
 

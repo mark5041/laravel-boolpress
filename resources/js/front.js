@@ -9,6 +9,7 @@ import Home from './pages/Home.vue';
 import About from './pages/About.vue';
 import Products from './pages/Products.vue';
 import Product from './pages/Product.vue';
+import Contacts from './pages/Contacts.vue';
 
 const router = new VueRouter(
 {
@@ -35,6 +36,12 @@ const router = new VueRouter(
             name: 'product',
             props: true, 
             component: Product
+        },
+        {
+            path: '/contacts',
+            name: 'contacts',
+            props: true, 
+            component: Contacts
         }
     ],
 });
